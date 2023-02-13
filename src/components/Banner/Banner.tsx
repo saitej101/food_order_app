@@ -7,9 +7,9 @@ function Banner() {
       <Center h="100%">
         <Stack mt='6' spacing='2'>
           <Center>
-            <Heading fontSize={50} color='#fff' size='lg'>Zomato</Heading>
+            <Heading as='h2' size='3xl' color='#fff'>FoodZania</Heading>
           </Center>
-          <Text fontSize={30} color='#fff'>Discover the best food & drinks in Mumbai</Text>
+          <Text fontSize='2xl' color='#fff'>Discover the best food & drinks in Mumbai</Text>
         </Stack>
       </Center>
     </Box>
