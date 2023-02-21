@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "name": "Butter Chicken",
+    "price": 200,
+    "imgUrl": "/butter-chicken.jpg",
+    "quantity": 0
+  },
+  {
+    "id": 2,
+    "name": "Rice Curry",
+    "price": 250,
+    "imgUrl": "/rice-curry.jpg",
+    "quantity": 0
+  },
+  {
+    "id": 3,
+    "name": "Pasta",
+    "price": 299,
+    "imgUrl": "/pasta.jpg",
+    "quantity": 0
+
+  },
+  {
+    "id": 4,
+    "name": "Noodles",
+    "price": 199,
+    "imgUrl": "/noodles.jpg",
+    "quantity": 0
+  }
+]

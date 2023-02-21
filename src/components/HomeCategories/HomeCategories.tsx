@@ -6,18 +6,21 @@ import { useNavigate } from 'react-router-dom';
 function HomeCategories() {
   const homeCategories = [
     {
+      id: 1,
       imageSrc: 'order_online_bg.jpg',
       headerTitle: 'Order Online',
       description: `Stay home and order to your doorstep`,
       route: 'order-online',
     },
     {
+      id: 2,
       imageSrc: 'dine_in_bg.jpg',
       headerTitle: 'Dining',
       description: `View the city's favourite dining venues`,
       route: 'dine-out',
     },
     {
+      id: 3,
       imageSrc: 'nightlife_bg.jpg',
       headerTitle: 'Nightlife and Clubs',
       description: `Explore the city's top nightlife outlets`,
@@ -29,7 +32,7 @@ function HomeCategories() {
   const handleCategorySelection = (selectedCategory: any) => navigate(selectedCategory?.route);
 
   return (
-    <SimpleGrid columns={3} spacing={6} mx="200px" py="40px">
+    <SimpleGrid columns={3} spacing={6} py="40px">
       {homeCategories.map((category) => {
         return (
           <Card
@@ -40,6 +43,7 @@ function HomeCategories() {
             variant='unstyled'
             _hover={{ transform: 'scale(1.05)', boxShadow: '2xl' }}
             onClick={() => handleCategorySelection(category)}
+            key={category.id}
           >
             <CardBody>
               <Image
