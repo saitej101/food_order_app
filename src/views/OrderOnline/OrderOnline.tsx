@@ -22,6 +22,7 @@ const OrderOnline = () => {
   };
   const onOrderPlace = () => {
     setCartItems([]);
+    itemList.forEach((item) => item.quantity = 0);
   };
   return (
     <Box>
@@ -32,7 +33,7 @@ const OrderOnline = () => {
           {
             itemList.map((item) => {
               return (
-                <Item item={item} key={item.id} updateCart={updateCart}>
+                <Item item={item} key={item.id} updateCart={updateCart} onOrderPlace={onOrderPlace}>
                 </Item>);
             })
           }
