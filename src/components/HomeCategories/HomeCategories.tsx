@@ -32,7 +32,7 @@ function HomeCategories() {
   const handleCategorySelection = (selectedCategory: any) => navigate(selectedCategory?.route);
 
   return (
-    <SimpleGrid columns={3} spacing={6} py="40px">
+    <SimpleGrid columns={[1, 2, 3]} spacing={6} py="40px">
       {homeCategories.map((category) => {
         return (
           <Card

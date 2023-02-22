@@ -65,7 +65,7 @@ const Cart = (props: any) => {
   return (
     <>
       {
-        cartItems?.length && (
+        cartItems?.length > 0 && (
           <Circle size='24px' bg='green' color='white' pos="fixed" zIndex="4" float="right" bottom="52px" right="15px">
             {cartItems.length}
           </Circle>
