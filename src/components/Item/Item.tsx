@@ -1,20 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Item.css';
 import { formatCurrency } from '../../utilities/formatCurrency';
 import { Stack, Card, CardBody, Text, Box, Heading, Image, Flex, Button, Spacer } from '@chakra-ui/react';
 import { AddIcon, MinusIcon, DeleteIcon } from '@chakra-ui/icons';
 
 function Item(props: any) {
-  const [item, setItem] = useState(props.item);
+  const[item, setItem] = useState(props.item);
+
+  useEffect(
+    () => {
+      setItem(props.item);
+    }
+    , [props.item.quantity] // only run effect when workspaceID changes
+  )
+
   const onAddItem = () => {
-    item.quantity += 1;
-    setItem(item);
-    props.updateCart(item);
+    const action = item.quantity === 0 ? 'add' : 'update';
+    const updatedQuantity = item.quantity + 1;
+    item.quantity = updatedQuantity;
+    setItem({...item});
+    props.updateCart(action, item, updatedQuantity);
   };
+  
   const onRemoveItem = () => {
-    item.quantity -= 1;
-    setItem(item);
-    props.updateCart(item);
+    const action = item.quantity === 1 ? 'remove' : 'update';
+    const updatedQuantity = item.quantity - 1;
+    item.quantity = updatedQuantity;
+    setItem({...item});
+    props.updateCart(action, item, updatedQuantity);
   };
 
   return (

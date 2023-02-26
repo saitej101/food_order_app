@@ -26,17 +26,26 @@ import { FaShoppingCart } from "react-icons/fa";
 import { AddIcon, MinusIcon, DeleteIcon } from '@chakra-ui/icons';
 import { formatCurrency } from '../../utilities/formatCurrency';
 import React from 'react';
+import { useSelector } from "react-redux";
+import { Item, CartState } from '../../store/cart/cartTypes';
 
 const Cart = (props: any) => {
-  const cartItems = props.items;
+  const cartItems: readonly Item[] = useSelector(
+    (state: CartState) => state.items,
+  );
+
   const toast = useToast();
   const onAddItem = (item: any) => {
-    item.quantity += 1;
-    props.updateCart(item);
+    console.log(cartItems);
+    
+    const action = item.quantity === 0 ? 'add' : 'update';
+    const updatedQuantity = item.quantity + 1;
+    props.updateCart(action, item, updatedQuantity);
   };
   const onRemoveItem = (item: any) => {
-    item.quantity -= 1;
-    props.updateCart(item);
+    const action = item.quantity === 1 ? 'remove' : 'update';
+    const updatedQuantity = item.quantity - 1;
+    props.updateCart(action, item, updatedQuantity);
   };
 
   const onOrderPlace = () => {

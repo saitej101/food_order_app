@@ -1,40 +1,57 @@
-import { useState } from 'react';
 import './OrderOnline.css';
 import { Container, SimpleGrid, Heading, Box, } from '@chakra-ui/react';
 import itemList from "../../data/items.json";
 import Item from '../../components/Item/Item';
 import Cart from '../../components/Cart/Cart';
 
+import { addItem, clearCart, removeItem, updateItem } from '../../store/cart/cartActionCreators';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
+import { Item as CartItem } from '../../store/cart/cartTypes';
+import { useState } from 'react';
+
 const OrderOnline = () => {
-  const [cartItems, setCartItems] = useState<any[]>([]);
-  const updateCart = (selectedItem: any) => {
-    const indexToUpdate = cartItems.findIndex((item) => item.id === selectedItem.id);
-    if (indexToUpdate >= 0) {
-      const updatedCart = [...cartItems];
-      updatedCart[indexToUpdate].quantity = selectedItem.quantity;
-      if (updatedCart[indexToUpdate].quantity <= 0) {
-        updatedCart.splice(indexToUpdate, 1);
-      }
-      setCartItems(updatedCart);
-    } else {
-      setCartItems([...cartItems, selectedItem]);
+  const [items, setItems] = useState(itemList);
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const onOrderPlace = () => {
+    itemList.forEach((item) => item.quantity = 0);
+    setItems([...itemList]);
+    dispatch(clearCart());
+  };
+
+  const updateCart = (action: string, item: CartItem, updatedQuantity: number) => {
+    console.log('action !', action, item);
+    
+    switch (action) {
+      case 'add':
+        dispatch(addItem(item));
+        break;
+
+      case 'remove':
+        dispatch(removeItem(item));
+        break;
+
+      case 'update':
+        dispatch(updateItem(item, updatedQuantity));
+        break;
+
+      default:
+        break;
     }
   };
-  const onOrderPlace = () => {
-    setCartItems([]);
-    itemList.forEach((item) => item.quantity = 0);
-  };
+
   return (
     <Box>
-      <Cart items={cartItems} updateCart={updateCart} onOrderPlace={onOrderPlace}/>
+      <Cart updateCart={updateCart} onOrderPlace={onOrderPlace} />
       <Container maxW='6xl' pt="20px">
         <Heading as='h2' size='xl'>{'Best Food Items near you'}</Heading>
         <SimpleGrid columns={[1, 2, 3]} spacing={6} py="40px">
           {
-            itemList.map((item) => {
+            items.map((item) => {
               return (
-                <Item item={item} key={item.id} updateCart={updateCart} onOrderPlace={onOrderPlace}>
-                </Item>);
+                <Item item={item} key={item.id} updateCart={updateCart} onOrderPlace={onOrderPlace} />
+              );
             })
           }
         </SimpleGrid>
